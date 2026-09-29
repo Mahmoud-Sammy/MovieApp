@@ -1,5 +1,16 @@
 import Card from "./Card";
 
+type Movie = {
+    id: number;
+    title: string;
+    overview: string;
+    poster_path: string | null;
+    backdrop_path: string | null;
+    vote_average: number;
+    release_date: string;
+    media_type: "movie";
+};
+
 async function fetchTrendingMovies() {
     const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
     const res = await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${apiKey}`);
@@ -22,7 +33,7 @@ export default async function TrendingMovies() {
             <div className="flex overflow-x-auto gap-14 pb-4">
                 {
                     movies.length > 0 ? (
-                        movies.map((movie: any) => <Card key={movie.id} media={movie} />)
+                        movies.map((movie: Movie) => <Card key={movie.id} media={movie} />)
                     ) : (
                         <p className="text-gray-400">No Movies Found</p>
                     )
